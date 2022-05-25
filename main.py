@@ -9,11 +9,18 @@ from flask import render_template, redirect
 # Import routes
 from app import app as app
 from app import mysql as mysql
-from employees import cr_employees, u_employees, d_employees
 
-app.register_blueprint(cr_employees)
-app.register_blueprint(u_employees)
-app.register_blueprint(d_employees)
+# Employees Page
+from employees import create_employees, update_employees, del_employees
+app.register_blueprint(create_employees)
+app.register_blueprint(update_employees)
+app.register_blueprint(del_employees)
+
+# Rollercoasters Page Page
+from rollercoasters import create_rollercoasters, update_rollercoasters, del_rollercoasters
+app.register_blueprint(create_rollercoasters)
+app.register_blueprint(update_rollercoasters)
+app.register_blueprint(del_rollercoasters)
 
 # ----------------------------------------------------------------
 # Home/Index Routes
