@@ -129,11 +129,15 @@
                                 <label for="name">Theme Park
                                   <select class="form-control" id="theme_park_id" name="theme_park_id" pattern="[0-9]{1,}" placeholder="" required>
                                     <!-- these are hard coded, but you can add code to make this dynamic -->
-                                      <option default>- Select -</option>                                    
-                                      <option value="1">Bavarian Valley</option>
-                                      <option value="2">Amazing Forest</option>
-                                      <option value="3">Space World</option>
-                                      <option value="4">Nuclear Winter Park</option>                                      
+                                      <option default>- Select -</option>
+                                      {% for park in theme_parks %}
+                                      <!-- Citation for formatting with a . as opposed to [] to prevent syntax errors
+                                        Date: 5/24/2022
+                                        Source: https://stackoverflow.com/questions/48751938/how-to-make-dropdown-list-change-a-table-data-with-jinja2-flask-->
+                                      <option value = {{park.theme_park_id}}>{{park['name']}}</option>
+                                      {% endfor %}
+                             
+                                    
                                     </select>
                                 </label>                                                            
                                 <br>
@@ -183,11 +187,9 @@
                           <label for="name">Theme Park
                             <select class="form-control" id="theme_park_id" name="theme_park_id" pattern="[0-9]{1,}" placeholder="" required>
                               <!-- these are hard coded, but you can add code to make this dynamic -->
-                                <option default>- Select -</option>                                    
-                                <option value="1">Bavarian Valley</option>
-                                <option value="2">Amazing Forest</option>
-                                <option value="3">Space World</option>
-                                <option value="4">Nuclear Winter Park</option>                                      
+                              {% for park in theme_parks %}
+                              <option value = {{park.theme_park_id}}>{{park['name']}}</option>
+                              {% endfor %}                                    
                               </select>
                           </label>                                                            
                           <br>
