@@ -25,12 +25,12 @@
             <div class="col d-flex justify-content-center">
 
                 <div class="nav">
-                  <a class="nav-link text-warning h4" href="./index.html">Home</a>
-                  <a class="nav-link text-warning h4" href="./parks.html">Parks</a>
-                  <a class="nav-link text-warning h4" href="./rollercoasters.html">Rollercoasters</a>                  
-                  <a class="nav-link text-warning h4" id="current-page" href="./issued-certifications.html">Issued Certifications</a>                                    
-                  <a class="nav-link text-warning h4" href="./employees.html">Employees</a>
-                  <a class="nav-link text-warning h4" href="./certificates.html">Certificates</a>
+                  <a class="nav-link text-warning h4" href="./index">Home</a>
+                  <a class="nav-link text-warning h4" href="./parks">Parks</a>
+                  <a class="nav-link text-warning h4" href="./rollercoasters">Rollercoasters</a>                  
+                  <a class="nav-link text-warning h4" id="current-page" href="./issued-certifications">Issued Certifications</a>                                    
+                  <a class="nav-link text-warning h4" href="./employees">Employees</a>
+                  <a class="nav-link text-warning h4" href="./certificates">Certificates</a>
                   </div>
 
             </div>
@@ -43,157 +43,162 @@
               </a>
             </div>
         </div>
-        <!-- body -->
+
+        <!---------------------------------------------------------------
+        # POPULATE TABLE
+        # Citation for the following methods:
+        # Date: 5/15/2022
+        # Copied/adapted from:
+        # Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/templates/people.j2
+        # -------------------------------------------------------------- -->
         <div class="row">
           <div class="col d-flex flex-column">
             
-            <h1 class="h1 text-warning mx-auto mt-5">Issued Certificates</h1>
+            <h1 class="h1 text-warning mx-auto mt-5">Issued Certifications</h1>
             <div class="mx-auto m-4">
               <table class="text-warning">
-                <tr>
-                  <th>issued_cert_id</th>
-                  <th>cert_earned_date</th>
-                  <th>cert_expiration_date</th>
-                  <th>employee_id</th>
-                  <th>cert_id</th>                  
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>2022-04-02</td>
-                  <td>2023-04-02</td>
-                  <td>2</td>
-                  <td>2</td>                                    
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>2022-04-02</td>
-                  <td>2023-04-02</td>
-                  <td>2</td>
-                  <td>3</td>
-                </tr>                                    
-                <tr>
-                  <td>3</td>
-                  <td>2022-04-02</td>
-                  <td>2023-04-02</td>
-                  <td>2</td>
-                  <td>1</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>2022-04-02</td>
-                  <td>2023-04-02</td>
-                  <td>2</td>
-                  <td>4</td>
-                </tr>
+            <!-- Access data tuple passed from app.py --> 
+            {% if data %}
+			    <thead>
+				    <tr>
+              <th>Issued Cert ID</th>
+              <th>Issued Cert Type</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Cert Earned Date</th>
+              <th>Cert Expiration Date</th>
+            </tr>
+            
+				<tbody>
+					<!-- Now, iterate through every item in data -->{% for item in data %}
+					    <tr>
+						    <!-- Then iterate through every key in the current item dictionary -->
+                            {% for key in item.keys() %}
+
+						    <!-- Create a <td> element with the value of that key in it -->
+						    <td> {{item[key]}} </td> 
+                            {% endfor %}
+
+                <!-- Create our edit/delete buttons -->
+						    <td><a href="edit_issued_cert{{item.id}}" class="btn btn-default">Edit</a></td>
+						    <td><a href="delete_issued_cert/{{item.issued_cert_id}}" class="btn btn-default">Delete</a></td>
+
+					    </tr> 
+                        {% endfor %} 
+                {% endif %} 
               </table>
           </div>            
 
             <!-- CRUD functions-->
             <div id="accordion">
                 
-                <!-- add new issued certificate -->
-                <div class="card w-50 mx-auto bg-warning">
-                  <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">                        
-                      <button class="btn btn-link text-dark" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                        Add Issued Certificate
-                      </button>
-                    </h5>
-                  </div>
+<!---------------------------------------------------------------
+# ADD Issued Certification
+# Citation for the following methods:
+# Date: 5/15/2022
+# Adapted from:
+# Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/templates/people.j2
+# -------------------------------------------------------------- -->
+<div class="card w-50 mx-auto bg-warning">
+  <div class="card-header" id="headingOne">
+    <h5 class="mb-0">                        
+      <button class="btn btn-link text-dark" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+      Add Issued Certification
+      </button>
+    </h5>
+</div>
               
-                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                    <div class="card-body">
+<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+  <div class="card-body">
+      <form action="/issued-certifications" method="post">
+          <fieldset>
+            <label for="cert_id">Certification ID
+              <select class="form-control" id="cert_id" name="cert_id" placeholder="" required>
+                <option default>- Select -</option>                                    
+                {% for cert in cert_data %}
+                <option value = {{cert.cert_id}}>{{cert['type']}}</option>
+                {% endfor %}                                        
+              </select>
+            </label>
+            <label for="employee_id">Employee ID
+              <select class="form-control" id="employee_id" name="employee_id" placeholder="" required>
+                <option default>- Select -</option>                                    
+                {% for employee in employee_data %}
+                <option value = {{employee.employee_id}}>{{employee['first_name']}}</option>
+                {% endfor %}                                        
+              </select>
+            </label>
+              <label for="cert_earned_date">Certification Earned Date
+                  <input type="date" class="form-control" id="cert_earned_date" name="cert_earned_date" placeholder="" required>
+              </label>
+              <label for="cert_expiration_date">Certification Expiration Date
+                  <input type="date" class="form-control" id="cert_expiration_date" name="cert_expiration_date" placeholder="" required>
+              </label>                                              
+              <br>
+              <input type="submit" value="Add Certification" name="add_issued_cert"> 
+          </fieldset>                            
+      </form>
+</div>
+  </div>
+</div>
 
-                        <form action="">
-                            <fieldset>
-                                <label for="name">Certifcation Issue Date:
-                                    <input type="date">
-                                </label>
-                                <label for="name">Certifcation Expiration Date:
-                                    <input type="date">
-                                </label>
-                                <label for="name">Employee ID:
-                                    <input type="text">
-                                </label>                                
-                                <label for="name">Certification ID:
-                                  <input type="text">
-                              </label>             
-                                <br>
-                                <input type="submit" value="Add Issued Certificate"> 
-                            </fieldset>                            
-                        </form>
-
-                    </div>
-                  </div>
-                </div>
-
-                <!-- delete amusement park -->
-                <div class="card w-50 mx-auto bg-warning">
-                  <div class="card-header" id="headingTwo">
-                    <h5 class="mb-0">
-                      <button class="btn btn-link collapsed text-dark" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Delete Issued Certificate
-                      </button>
-                    </h5>
-                  </div>
-                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                    <div class="card-body">
-
-                        <form action="">
-                            <fieldset>
-
-                                <label for="name">Delete Issued Certificate:
-                                    <select>
-                                      <option value="1">1</option>
-                                      <option value="2">2</option>
-                                      <option value="3">3</option>
-                                      <option value="4">4</option>
-                                    </select>
-                                </label>                                
-                                <input type="submit" value="Delete"> 
-                            </fieldset>
-                        </form>
-
-                    </div>
-                  </div>
-                </div>
-
-                <!-- update amusement park -->
+                <!---------------------------------------------------------------
+                # UPDATE Issued Certification 
+                # Citation for the following methods:
+                # Date: 5/17/2022
+                # Adapted from:
+                # Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/templates/people.j2
+                # -------------------------------------------------------------- -->
                 <div class="card w-50 mx-auto bg-warning">
                   <div class="card-header" id="headingThree">
                     <h5 class="mb-0">
                       <button class="btn btn-link collapsed text-dark" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Update Employee
+                        Update Issued Certification
                       </button>
                     </h5>
                   </div>
                   <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                     <div class="card-body">
-                      <form action="">
+                      <form action="/edit_issued_cert" method="post">
                         <fieldset>
-                          <label for="certfied-id">Issued Certificate ID:
-                            <input type="text">
+                          <label for="issued_cert_id">Certification ID
+                            <select class="form-control" id="issued_cert_id" name="issued_cert_id" placeholder="" required>
+                              <option default>- Select -</option>                                    
+                              {% for data in data %}
+                              <option value = {{data.issued_cert_id}}>{{data['issued_cert_id']}}</option>
+                              {% endfor %}                                        
+                            </select>
                           </label>
-                            <label for="name">Certifcation Issue Date:
-                                <input type="date">
-                            </label>
-                            <label for="name">Certifcation Expiration Date:
-                                <input type="date">
-                            </label>
-                            <label for="name">Employee ID:
-                                <input type="text">
-                            </label>                                
-                            <label for="name">Certification ID:
-                              <input type="text">
-                          </label>             
+                          <label for="cert_id">Certification ID
+                            <select class="form-control" id="cert_id" name="cert_id" placeholder="" required>
+                              <option default>- Select -</option>                                    
+                              {% for cert in cert_data %}
+                              <option value = {{cert.cert_id}}>{{cert['type']}}</option>
+                              {% endfor %}                                        
+                            </select>
+                          </label>
+                          <label for="employee_id">Employee ID
+                            <select class="form-control" id="employee_id" name="employee_id" placeholder="" required>
+                              <option default>- Select -</option>                                    
+                              {% for employee in employee_data %}
+                              <option value = {{employee.employee_id}}>{{employee['first_name']}}</option>
+                              {% endfor %}                                        
+                            </select>
+                          </label>
+                          <label for="cert_earned_date">Certification Earned Date
+                            <input type="date" class="form-control" id="cert_earned_date" name="cert_earned_date" placeholder="" required>
+                          </label>
+                          <label for="cert_expiration_date">Certification Expiration Date
+                            <input type="date" class="form-control" id="cert_expiration_date" name="cert_expiration_date" placeholder="" required>
+                          </label>                                                
                             <br>
-                            <input type="submit" value="Update"> 
+                            <input type="submit" value="Update Issued Cert" name="edit_issued_cert"> 
                         </fieldset>                            
                     </form>
                     </div>
                   </div>
                 </div>
-
+                   
               </div><!-- end accordian -->
 
             <div class="row my-3">
