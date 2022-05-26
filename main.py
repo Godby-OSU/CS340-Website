@@ -22,6 +22,13 @@ app.register_blueprint(create_rollercoasters)
 app.register_blueprint(update_rollercoasters)
 app.register_blueprint(del_rollercoasters)
 
+# Issued Certiciations Page
+# Rollercoasters Page Page
+from issued_certifications import create_issued_cert, update_issued_cert, del_issued_cert
+app.register_blueprint(create_issued_cert)
+app.register_blueprint(update_issued_cert)
+app.register_blueprint(del_issued_cert)
+
 # ----------------------------------------------------------------
 # Home/Index Routes
     # Date: 5/15/2022
