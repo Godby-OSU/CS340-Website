@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>    
 
     <!-- custom stylesheet -->
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='./styles.css')}}">
 
     <title>CS 340 - Project - Park Entity</title>
   </head>
@@ -39,7 +39,7 @@
         <div class="row mt-2">
             <div class="col d-flex justify-content-center">
               <a href="./index.html">
-                <img src="./images/tempting-fate-header.jpg" class="img-fluid" alt="Tempting Fate Amusement Park Company Picnic 2022">
+                <img src="./../static/tempting-fate-header.jpg" class="img-fluid" alt="Tempting Fate Amusement Park Company Picnic 2022">
               </a>
             </div>
         </div>

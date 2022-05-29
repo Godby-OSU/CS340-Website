@@ -8,9 +8,9 @@ from app import mysql as mysql
     # Adapted from:
     # Source URL: https://stackoverflow.com/questions/15231359/split-python-flask-app-into-multiple-files
 # ----------------------------------------------------------------
-cr_employees = Blueprint('cr_employees', __name__)
-u_employees = Blueprint('u_employees', __name__)
-d_employees = Blueprint('d_employees', __name__)
+create_employees = Blueprint('create_employees', __name__)
+update_employees = Blueprint('update_employees', __name__)
+del_employees = Blueprint('del_employees', __name__)
 
 # ----------------------------------------------------------------
 # CREATE & READ
@@ -18,7 +18,7 @@ d_employees = Blueprint('d_employees', __name__)
     # Adapted from:
     # Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/app.py
 # ----------------------------------------------------------------
-@cr_employees.route("/employees", methods=["POST", "GET"])
+@create_employees.route("/employees", methods=["POST", "GET"])
 def employees():
     # --- CREATE / INSERT --- #
     if request.method == "POST":
@@ -73,7 +73,7 @@ def employees():
     # Adapted from:
     # Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/app.py
 # ----------------------------------------------------------------
-@d_employees.route("/delete_employees/<int:id>")
+@del_employees.route("/delete_employees/<int:id>")
 # --- DELETE --- #
 def delete_employees(id):
     query = "DELETE FROM employees WHERE employee_id = '%s';"
@@ -90,8 +90,8 @@ def delete_employees(id):
     # Adapted from:
     # Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/app.py
 # ----------------------------------------------------------------
-@u_employees.route("/edit_employees", methods=["POST", "GET"])
-def edit_people():
+@update_employees.route("/edit_employees", methods=["POST", "GET"])
+def edit_employees():
     if request.method == "POST":
         # Update data when user clicks "Update Employee"
         if request.form.get("Update_Employee"):

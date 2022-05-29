@@ -29,6 +29,17 @@ app.register_blueprint(create_issued_cert)
 app.register_blueprint(update_issued_cert)
 app.register_blueprint(del_issued_cert)
 
+# Rollercoasters Page Page
+from parks import create_theme_park, update_theme_park, del_theme_park
+app.register_blueprint(create_theme_park)
+app.register_blueprint(update_theme_park)
+app.register_blueprint(del_theme_park)
+
+from certificates import create_certificate, update_certificate, del_certificate
+app.register_blueprint(create_certificate)
+app.register_blueprint(update_certificate)
+app.register_blueprint(del_certificate)
+
 # ----------------------------------------------------------------
 # Home/Index Routes
     # Date: 5/15/2022
@@ -50,4 +61,4 @@ def index():
 # Listener - Run website
 # ----------------------------------------------------------------
 if __name__ == "__main__":
-    app.run(port=3000, debug=True)
+    app.run(port=14449, debug=True)

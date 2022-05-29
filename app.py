@@ -11,9 +11,9 @@ app = Flask(__name__)
     # Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/app.py
 # ----------------------------------------------------------------
 app.config["MYSQL_HOST"] = "classmysql.engr.oregonstate.edu"
-app.config["MYSQL_USER"] = "cs340_x"
-app.config["MYSQL_PASSWORD"] = "x"
-app.config["MYSQL_DB"] = "cs340_x"
+app.config["MYSQL_USER"] = "cs340_lovest"
+app.config["MYSQL_PASSWORD"] = "6564"
+app.config["MYSQL_DB"] = "cs340_lovest"
 app.config["MYSQL_CURSORCLASS"] = "DictCursor"
 
 mysql = MySQL(app)

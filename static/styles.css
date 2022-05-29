@@ -1,0 +1,45 @@
+body {
+    font-family: 'Comic Neue', cursive;
+    background: url("./tycoon.png") !important;    
+    background-color: #cccccc;
+}
+
+table{
+    border: 1px solid rgba(var(--bs-warning-rgb),var(--bs-text-opacity)) !important;    
+}
+
+th{
+    color: black;
+    text-transform: uppercase;
+    border: 5px solid rgba(var(--bs-warning-rgb),var(--bs-text-opacity)) !important;
+    text-align: center; 
+    vertical-align: middle;
+    padding: 5px;
+    background-color: rgba(var(--bs-warning-rgb),var(--bs-text-opacity)) !important;
+}
+
+td{
+    border: 5px solid rgba(var(--bs-warning-rgb),var(--bs-text-opacity)) !important;
+    text-align: center; 
+    vertical-align: middle;
+    padding: 5px
+}
+
+
+
+#current-page {
+    box-shadow: 12px 12px 2px 1px rgba(var(--bs-warning-rgb),var(--bs-text-opacity));
+}
+
+img{
+    border-radius: 30px;
+}
+
+.btn-link{
+    text-decoration: none;
+}
+
+input{
+    margin: 5px 0;
+}
+
