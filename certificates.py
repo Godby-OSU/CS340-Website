@@ -18,7 +18,7 @@ del_certificate = Blueprint('del_certificate', __name__)
     # Adapted from:
     # Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/app.py
 # ----------------------------------------------------------------
-@create_certificate.route("/certificates", methods=["POST", "GET"])
+@create_certificate.route("/certificate", methods=["POST", "GET"])
 def certificate():
     # --- CREATE / INSERT --- #
     if request.method == "POST":
@@ -122,8 +122,7 @@ def certificate():
 # --- DELETE --- #
 def delete_certificate(id):
     query = """
-    DELETE 
-    FROM 
+    DELETE FROM 
         certifications 
     WHERE 
         cert_id = '%s';
@@ -146,7 +145,7 @@ def delete_certificate(id):
     # Adapted from:
     # Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/app.py
 # ----------------------------------------------------------------
-@update_certificate.route("/edit_certificates", methods=["POST", "GET"])
+@update_certificate.route("/edit_certificate", methods=["POST", "GET"])
 def edit_certificate():
     if request.method == "POST":
         # Update data when user clicks "Update Employee"
@@ -163,12 +162,12 @@ def edit_certificate():
                 UPDATE 
                     certifications
                 SET 
-                    certifications.cert_id              = %s,
-                    certifications.cert_type            = %s,
-                    certifications.cert_agency          = NULL, 
-                    certifications.cert_pay_increase    = NULL,                     
+                    cert_id              = %s,
+                    cert_type            = %s,
+                    cert_agency          = NULL, 
+                    cert_pay_increase    = NULL,                     
                 WHERE
-                    certifications.cert_id              = %s
+                    cert_id              = %s
                 """
                 cur = mysql.connection.cursor()
                 cur.execute(query, (cert_id, cert_type, cert_agency, cert_pay_increase))
@@ -180,12 +179,12 @@ def edit_certificate():
                 UPDATE 
                     certifications
                 SET 
-                    certifications.cert_id              = %s,
-                    certifications.cert_type            = %s,
-                    certifications.cert_agency          = NULL, 
-                    certifications.cert_pay_increase    = %s,                     
+                    cert_id              = %s,
+                    cert_type            = %s,
+                    cert_agency          = NULL, 
+                    cert_pay_increase    = %s,                     
                 WHERE
-                    certifications.cert_id              = %s
+                    cert_id              = %s
                 """
                 cur = mysql.connection.cursor()
                 cur.execute(query, (cert_id, cert_type, cert_agency, cert_pay_increase))
@@ -195,14 +194,13 @@ def edit_certificate():
             elif cert_pay_increase == "":
                 query = """
                 UPDATE 
-                    certifications
-                SET 
-                    certifications.cert_id              = %s,
-                    certifications.cert_type            = %s,
-                    certifications.cert_agency          = %s, 
-                    certifications.cert_pay_increase    = NULL,                     
+                                    SET 
+                    cert_id              = %s,
+                    cert_type            = %s,
+                    cert_agency          = %s, 
+                    cert_pay_increase    = NULL,                     
                 WHERE
-                    certifications.cert_id              = %s
+                    cert_id              = %s
                 """
                 cur = mysql.connection.cursor()
                 cur.execute(query, (cert_id, cert_type, cert_agency, cert_pay_increase))
@@ -214,12 +212,12 @@ def edit_certificate():
                 UPDATE 
                     certifications
                 SET 
-                    certifications.cert_id              = %s,
-                    certifications.cert_type            = %s,
-                    certifications.cert_agency          = %s, 
-                    certifications.cert_pay_increase    = %s,                     
+                    cert_id              = %s,
+                    cert_type            = %s,
+                    cert_agency          = %s, 
+                    cert_pay_increase    = %s,                     
                 WHERE
-                    certifications.cert_id              = %s
+                    cert_id              = %s
                 """
                 cur = mysql.connection.cursor()
                 cur.execute(query, (cert_id, cert_type, cert_agency, cert_pay_increase))

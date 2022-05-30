@@ -8,9 +8,9 @@ from app import mysql as mysql
     # Adapted from:
     # Source URL: https://stackoverflow.com/questions/15231359/split-python-flask-app-into-multiple-files
 # ----------------------------------------------------------------
-create_theme_park = Blueprint('cr_theme_park', __name__)
-update_theme_park = Blueprint('u_theme_park', __name__)
-del_theme_park = Blueprint('d_theme_park', __name__)
+create_theme_park = Blueprint('create_theme_park', __name__)
+update_theme_park = Blueprint('update_theme_park', __name__)
+del_theme_park = Blueprint('del_theme_park', __name__)
 
 # ----------------------------------------------------------------
 # CREATE & READ
@@ -19,10 +19,10 @@ del_theme_park = Blueprint('d_theme_park', __name__)
     # Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/app.py
 # ----------------------------------------------------------------
 @create_theme_park.route("/parks", methods=["POST", "GET"])
-def theme_park():
+def parks():
     # --- CREATE / INSERT --- #
     if request.method == "POST":
-        # Update data when user clicks "Add Employee"
+        # Update data when user clicks "Add Theme Park"
         if request.form.get("Add_Theme_park"):
             # User inputs
             # theme_park_id = request.form["theme_park_id"]
@@ -33,14 +33,24 @@ def theme_park():
 
             # NULL phone value - this is only value allowed to be null.
             if phone == "":
-                query = "INSERT INTO employees (name, capacity, admission_fee, phone) VALUES (%s, %s, %s, %s)"
+                query = """
+                INSERT INTO theme_parks 
+                    (name, capacity, admission_fee)
+                VALUES
+                    (%s, %s, %s);
+                """
                 cur = mysql.connection.cursor()
-                cur.execute(query, (name, capacity, admission_fee, phone))
+                cur.execute(query, (name, capacity, admission_fee))
                 mysql.connection.commit()
 
             # No NULL inputs
             else:
-                query = "INSERT INTO employees (name, capacity, admission_fee, phone) VALUES (%s, %s, %s, %s)"
+                query = """
+                INSERT INTO theme_parks 
+                    (name, capacity, admission_fee, phone) 
+                VALUES
+                    (%s, %s, %s, %s);
+                """
                 cur = mysql.connection.cursor()
                 cur.execute(query, (name, capacity, admission_fee, phone))
                 mysql.connection.commit()
@@ -51,7 +61,7 @@ def theme_park():
     # --- READ /  SELECT --- #
     if request.method == "GET":
         # Query to grab all employee data
-        query = """SELECT theme_park_id, name, capacity, admission_fee, phone FROM theme_parks"""
+        query = """SELECT theme_park_id, name, capacity, admission_fee, phone FROM theme_parks;"""
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
@@ -89,8 +99,8 @@ def delete_theme_park(id):
     # Adapted from:
     # Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/app.py
 # ----------------------------------------------------------------
-@update_theme_park.route("/edit_theme_park", methods=["POST", "GET"])
-def edit_people():
+@update_theme_park.route("/edit_parks", methods=["POST", "GET"])
+def edit_parks():
     if request.method == "POST":
         # Update data when user clicks "Update Employee"
         if request.form.get("Update_Theme_park"):
@@ -101,23 +111,34 @@ def edit_people():
             admission_fee   = request.form["admission_fee"]
             phone           = request.form["phone"]
 
+            # print("name:", name)
+            # print("capacity:", capacity)
+            # print("admission_fee:", admission_fee)
+            # print("phone:", phone)
+
             # NULL phone value - this is only value allowed to be null.
             if phone == "":
                 query = """
-                UPDATE theme_parks 
-                SET name = %s, capacity = %s, admission_fee = %s, phone = %s,                 
-                WHERE theme_parks_id = %s
+                UPDATE 
+                    theme_parks 
+                SET 
+                    name = %s, capacity = %s, admission_fee = %s                  
+                WHERE 
+                    theme_park_id = %s;
                 """
                 cur = mysql.connection.cursor()
-                cur.execute(query, (name, capacity, admission_fee, phone, theme_park_id))
+                cur.execute(query, (name, capacity, admission_fee, theme_park_id))
                 mysql.connection.commit()
 
             # No NULL inputs
             else:
                 query = """
-                UPDATE theme_parks  
-                SET name = %s, capacity = %s, admission_fee = %s, phone = %s,                 
-                WHERE theme_parks_id = %s
+                UPDATE 
+                    theme_parks  
+                SET 
+                    name = %s, capacity = %s, admission_fee = %s, phone = %s                 
+                WHERE 
+                    theme_park_id = %s;
                 """
                 cur = mysql.connection.cursor()
                 cur.execute(query, (name, capacity, admission_fee, phone, theme_park_id))

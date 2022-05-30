@@ -23,18 +23,18 @@ app.register_blueprint(update_rollercoasters)
 app.register_blueprint(del_rollercoasters)
 
 # Issued Certiciations Page
-# Rollercoasters Page Page
 from issued_certifications import create_issued_cert, update_issued_cert, del_issued_cert
 app.register_blueprint(create_issued_cert)
 app.register_blueprint(update_issued_cert)
 app.register_blueprint(del_issued_cert)
 
-# Rollercoasters Page Page
+# Parks Page
 from parks import create_theme_park, update_theme_park, del_theme_park
 app.register_blueprint(create_theme_park)
 app.register_blueprint(update_theme_park)
 app.register_blueprint(del_theme_park)
 
+# Certificates page
 from certificates import create_certificate, update_certificate, del_certificate
 app.register_blueprint(create_certificate)
 app.register_blueprint(update_certificate)
