@@ -63,9 +63,15 @@ def employees():
         cur.execute(park_dropdown)
         theme_park_data = cur.fetchall()
 
+        # Employee Dropdown
+        employee_dropdown = "SELECT employee_id, first_name, last_name FROM employees;"
+        cur = mysql.connection.cursor()
+        cur.execute(employee_dropdown)
+        employee_data = cur.fetchall()        
+
         # render edit_people page passing our query data and homeworld data to the edit_people template
         print(theme_park_data)
-        return render_template("employees.html", data=data, theme_parks=theme_park_data)
+        return render_template("employees.html", data=data, theme_parks=theme_park_data, employees=employee_data)
 
 # ----------------------------------------------------------------
 # DELETE
@@ -96,26 +102,47 @@ def edit_employees():
         # Update data when user clicks "Update Employee"
         if request.form.get("Update_Employee"):
             # User inputs
-            employee_id = request.form["employee_id"]
-            theme_park_id = request.form["theme_park_id"]
-            first_name = request.form["first_name"]
-            last_name = request.form["last_name"]
-            classification = request.form["classification"]
-            email = request.form["email"]
-            phone = request.form["phone"]
+            employee_id     = request.form["employee_id"]
+            theme_park_id   = request.form["theme_park_id"]
+            first_name      = request.form["first_name"]
+            last_name       = request.form["last_name"]
+            classification  = request.form["classification"]
+            email           = request.form["email"]
+            phone           = request.form["phone"]
 
             # NULL phone value - this is only value allowed to be null.
             if phone == "":
-                query = """UPDATE employees SET employee.first_name = %s, employees.last_name =%s, employees.classification =%s, 
-                employees.email = %s, employees.theme_park_id = %s WHERE employees.employee_id %s"""
+                query = """
+                UPDATE 
+                    employees 
+                SET 
+                    employee.first_name         = %s,
+                    employees.last_name         = %s,
+                    employees.classification    = %s, 
+                    employees.email             = %s,
+                    employees.theme_park_id     = %s
+                WHERE 
+                    employees.employee_id %s;
+                """
                 cur = mysql.connection.cursor()
                 cur.execute(query, (first_name, last_name, classification, email, theme_park_id))
                 mysql.connection.commit()
 
             # No NULL inputs
             else:
-                query = """UPDATE employees SET employees.first_name = %s, employees.last_name =%s, employees.classification =%s, 
-                employees.email = %s, employees.phone =%s, employees.theme_park_id = %s WHERE employees.employee_id =%s"""
+                query = """
+                UPDATE 
+                    employees 
+                SET 
+                    employees.first_name        = %s,
+                    employees.last_name         = %s,
+                    employees.classification    = %s,
+                    employees.email             = %s,
+                    employees.phone             = %s,
+                    employees.theme_park_id     = %s 
+                WHERE 
+                    employees.employee_id       = %s
+                """
                 cur = mysql.connection.cursor()
                 cur.execute(query, (first_name, last_name, classification, email, phone, theme_park_id, employee_id))
                 mysql.connection.commit()

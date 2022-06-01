@@ -72,7 +72,7 @@
                   {% endfor %}
   
                   <!-- Create our edit/delete buttons -->
-                  <td><a href="edit_theme_park/{{item.id}}" class="btn btn-default">Edit</a></td>
+                  <!-- <td><a href="edit_theme_park/{{item.id}}" class="btn btn-default">Edit</a></td> -->
                   <td><a href="delete_theme_park/{{item.theme_park_id}}" class="btn btn-default">Delete</a></td>
   
                 </tr> 
@@ -137,23 +137,20 @@
                     <div class="card-body">
                         <form action="/edit_parks" name="Update_Theme_park" method="POST">
                             <fieldset>
-<!-- dropdown start
-
 
 
                               <label for="name">Theme Park ID
-                                <select class="form-control" id="theme_park_id" name="theme_park_id" pattern="[0-9]{1,}" placeholder="" required>
+                                <select class="form-control" id="theme_park_id" name="theme_park_id" required>
                                     <option default>- Select -</option>
                                     {% for park in theme_parks %}
                                     <option value = {{park.theme_park_id}}>{{park['name']}}</option>
                                     {% endfor %}                                        
                                   </select>
                               </label>     
-dropdown end-->
 
-                              <label for="name">Park ID
+                              <!-- <label for="name">Park ID
                                 <input type="text" class="form-control" id="theme_park_id" name="theme_park_id" placeholder="" required>
-                              </label>
+                              </label> -->
 
                               <label for="name">New Park Name
                                 <input type="text" class="form-control" id="name" name="name" placeholder="" required>

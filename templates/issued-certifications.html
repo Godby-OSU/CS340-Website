@@ -80,7 +80,7 @@
                             {% endfor %}
 
                 <!-- Create our edit/delete buttons -->
-						    <td><a href="edit_issued_cert{{item.id}}" class="btn btn-default">Edit</a></td>
+						    <!-- <td><a href="edit_issued_cert{{item.id}}" class="btn btn-default">Edit</a></td> -->
 						    <td><a href="delete_issued_cert/{{item.issued_cert_id}}" class="btn btn-default">Delete</a></td>
 
 					    </tr> 
@@ -149,7 +149,8 @@
                 # Adapted from:
                 # Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/templates/people.j2
                 # -------------------------------------------------------------- -->
-                <div class="card w-50 mx-auto bg-warning">
+                <!-- UPDATE start
+                   <div class="card w-50 mx-auto bg-warning">
                   <div class="card-header" id="headingThree">
                     <h5 class="mb-0">
                       <button class="btn btn-link collapsed text-dark" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -159,6 +160,9 @@
                   </div>
                   <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                     <div class="card-body">
+                      
+                      
+                      
                       <form action="/edit_issued_cert" method="post">
                         <fieldset>
                           <label for="issued_cert_id">Certification ID
@@ -195,11 +199,12 @@
                             <input type="submit" value="Update Issued Cert" name="edit_issued_cert"> 
                         </fieldset>                            
                     </form>
+                  
                     </div>
                   </div>
-                </div>
-                   
-              </div><!-- end accordian -->
+                </div>                   
+              </div> UPDATE end --------- -->
+              <!-- end accordian -->
 
             <div class="row my-3">
                 <div class="col d-flex justify-content-center">

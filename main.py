@@ -35,10 +35,10 @@ app.register_blueprint(update_theme_park)
 app.register_blueprint(del_theme_park)
 
 # Certificates page
-from certificates import create_certificate, update_certificate, del_certificate
-app.register_blueprint(create_certificate)
-app.register_blueprint(update_certificate)
-app.register_blueprint(del_certificate)
+from certificates import create_certificates, update_certificates, del_certificates
+app.register_blueprint(create_certificates)
+app.register_blueprint(update_certificates)
+app.register_blueprint(del_certificates)
 
 # ----------------------------------------------------------------
 # Home/Index Routes

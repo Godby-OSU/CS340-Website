@@ -54,9 +54,15 @@ def rol():
         cur.execute(park_dropdown)
         theme_park_data = cur.fetchall()
 
+        # Rollercoaster ID Dropdown
+        rollercoasters_dropdown = "SELECT rollercoaster_id, name FROM rollercoasters;"
+        cur = mysql.connection.cursor()
+        cur.execute(rollercoasters_dropdown)
+        rollercoasters_data = cur.fetchall()
+
         # render edit_people page passing our query data and homeworld data to the edit_people template
         print(theme_park_data)
-        return render_template("rollercoasters.html", data=data, theme_parks=theme_park_data)
+        return render_template("rollercoasters.html", data=data, theme_parks=theme_park_data, rollercoasters=rollercoasters_data)
 
 # ----------------------------------------------------------------
 # DELETE

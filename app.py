@@ -12,17 +12,17 @@ app = Flask(__name__)
 # ----------------------------------------------------------------
 
 # OSU
-# app.config["MYSQL_HOST"] = "classmysql.engr.oregonstate.edu"
-# app.config["MYSQL_USER"] = "cs340_lovest"
-# app.config["MYSQL_PASSWORD"] = "6564"
-# app.config["MYSQL_DB"] = "cs340_lovest"
-# app.config["MYSQL_CURSORCLASS"] = "DictCursor"
+app.config["MYSQL_HOST"]            = "classmysql.engr.oregonstate.edu"
+app.config["MYSQL_USER"]            = "cs340_lovest"
+app.config["MYSQL_PASSWORD"]        = "6564"
+app.config["MYSQL_DB"]              = "cs340_lovest"
+app.config["MYSQL_CURSORCLASS"]     = "DictCursor"
 
 # Localhost
-app.config["MYSQL_HOST"]        = "localhost"
-app.config["MYSQL_USER"]        = "root"
-app.config["MYSQL_PASSWORD"]    = ""
-app.config["MYSQL_DB"]          = "flaskapp"
-app.config["MYSQL_CURSORCLASS"] = "DictCursor"
+# app.config["MYSQL_HOST"]        = "localhost"
+# app.config["MYSQL_USER"]        = "root"
+# app.config["MYSQL_PASSWORD"]    = ""
+# app.config["MYSQL_DB"]          = "flaskapp"
+# app.config["MYSQL_CURSORCLASS"] = "DictCursor"
 
 mysql = MySQL(app)

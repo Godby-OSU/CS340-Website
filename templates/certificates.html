@@ -70,8 +70,8 @@
                     {% endfor %}
     
                     <!-- Create our edit/delete buttons -->
-                    <td><a href="edit_certificate/{{item.id}}" class="btn btn-default">Edit</a></td>
-                    <td><a href="delete_certificate/{{item.cert_id}}" class="btn btn-default">Delete</a></td>
+                    <!-- <td><a href="edit_certificates/{{item.id}}" class="btn btn-default">Edit</a></td> -->
+                    <td><a href="delete_certificates/{{item.cert_id}}" class="btn btn-default">Delete</a></td>
     
                   </tr> 
                     {% endfor %} 
@@ -99,63 +99,42 @@
               
                   <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body">
-                        <!-- START ADD FORM -->
-                        <form action="/certificates" method="POST" name="Add_Certificates">
+                        
+                      
+                      
+                      
+                      <!-- START ADD FORM -->
+                        <form action="/certificates" method="POST">
                             <fieldset>
                                 <label for="name">Certification Type
-                                    <input type="text">
+                                    <input type="text" class="form-control" name="type">
                                 </label>
                                 <label for="name">Certification Agency
-                                    <input type="text">
+                                    <input type="text" class="form-control" name="agency">
                                 </label>
                                 <br>
                                 <label for="radio_group_pay_raise">Pay Raise
                                     <fieldset id="pay_raise">
                                       <label>Yes</label>
-                                      <input type="radio" value="No" name="radio_group_pay_raise">
+                                      <input type="radio"  value="0" name="pay_increase">
                                       <label>No</label>
-                                      <input type="radio" value="Yes" name="radio_group_pay_raise">
+                                      <input type="radio"  value="1" name="pay_increase">
                                     </fieldset>                                    
-                                </label>
-                                <br>                                
-                                <label for="name">Employee Email
-                                    <input type="text">
-                                </label>                                
+                                </label>                                                    
                                 <br>
-                                <input type="submit" value="Add Certificate"> 
+                                <input type="submit" value="Add_Certificates" name="Add_Certificates"> 
                             </fieldset>                            
                         </form>
                         <!-- end form-->
-                    </div>
-                  </div>
-                </div>
 
-                <!-- delete certficate -->
-                <div class="card w-50 mx-auto bg-warning">
-                  <div class="card-header" id="headingTwo">
-                    <h5 class="mb-0">
-                      <button class="btn btn-link collapsed text-dark" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Delete Certificates
-                      </button>
-                    </h5>
-                  </div>
-                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                    <div class="card-body">
 
-                        <form action="/certificates" method="POST" name="Delete_Certificate">
-                            <fieldset>
 
-                                <label for="name">Delete Certificate
-                                    <input type="number">
-                                </label>
-                                <br>
-                                <input type="submit" value="Delete Certificate"> 
-                            </fieldset>
-                        </form>
+
 
                     </div>
                   </div>
                 </div>
+
 
                 <!-- update amusement park -->
                 <div class="card w-50 mx-auto bg-warning">
@@ -168,39 +147,51 @@
                   </div>
                   <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                     <div class="card-body">
-                      <form action="/certificates" method="POST" name="Update_Certificates">
+                      
+
+
+
+
+
+                      <!-- ------------- Update start ------------- -->
+                      <form action="/edit_certificates" method="POST">
                         <fieldset>
 
-                        <!-- drop down select theme park id-->
+                        <!-- drop down select theme park id -->
                         <label for="name">Certificate ID
-                          <select class="form-control" id="cert_id" name="cert_id" pattern="[0-9]{1,}" placeholder="" required>
+                          <select class="form-control" id="cert_id" name="cert_id" required>
                             <!-- these are hard coded, but you can add code to make this dynamic -->
                               <option default>- Select -</option>
-                              {% for park in theme_parks %}
+                              {% for certificate in certificates %}
                               <option value = {{certificate.cert_id}}>{{certificate['cert_id']}}</option>
                               {% endfor %}                                        
                             </select>
                         </label>     
                                                   
-                            <label for="cert_id">Certification Type
-                              <input type="text" class="form-control" id="type" name="type" pattern="[A-Za-z]{1,}" placeholder="" required>
-                            </label>
-                            <label for="cert_agency">Certification Agency
-                              <input type="text" class="form-control" id="agency" name="agency" pattern="[A-Za-z]{1,}" placeholder="" required>
-                            </label>
-                            <br>
-                            <label for="radio_group_pay_raise">Pay Raise
-                                <fieldset id="pay_raise">
-                                  <label>Yes</label>
-                                  <input type="radio" value="No" name="radio_group_pay_raise">
-                                  <label>No</label>
-                                  <input type="radio" value="Yes" name="radio_group_pay_raise">
-                                </fieldset>                                    
-                            </label>                                        
-                            <br>
-                            <input type="submit" value="Add Certificate"> 
+                        <label for="cert_type">Certification Type
+                          <input type="text" class="form-control" id="type" name="type"  required>
+                        </label>
+
+                        <label for="cert_agency">Certification Agency
+                          <input type="text" class="form-control" id="agency" name="agency" required>
+                        </label>
+
+                        <br>
+
+                        <label for="radio_group_pay_raise">Pay Raise
+                            <fieldset>
+                              <label>Yes</label>
+                              <input type="radio" value="1" name="pay_increase">
+                              <label>No</label>
+                              <input type="radio" value="0" name="pay_increase">
+                            </fieldset>                                    
+                        </label>                                        
+                        <br>
+                        <input type="submit" value="Update_Certificates" name="Update_Certificates"> 
                         </fieldset>                            
                     </form>
+                    <!-- ------------- Update end ------------- -->
+
                     </div>
                   </div>
                 </div>

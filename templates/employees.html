@@ -67,7 +67,7 @@
 				    <tr>
               <th>Employee ID</th>
               <th>First Name</th>
-              <th>Type</th>
+              <th>Last Name</th>
               <th>Classification</th>
               <th>Email</th>
               <th>Phone</th>
@@ -85,7 +85,7 @@
                             {% endfor %}
 
                 <!-- Create our edit/delete buttons -->
-						    <td><a href="edit_employees/{{item.id}}" class="btn btn-default">Edit</a></td>
+						    <!-- <td><a href="edit_employees/{{item.id}}" class="btn btn-default">Edit</a></td> -->
 						    <td><a href="delete_employees/{{item.employee_id}}" class="btn btn-default">Delete</a></td>
 
 					    </tr> 
@@ -155,38 +155,7 @@
                   </div>
                 </div>
 
-                <!---------------------------------------------------------------
-                # DELETE EMPLOYEE
-                # Citation for the following methods:
-                # Date: 5/16/2022
-                # Adapted from:
-                # Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app/blob/master/bsg_people_app/templates/people.j2
-                # -------------------------------------------------------------- -->
-                <div class="card w-50 mx-auto bg-warning">
-                  <div class="card-header" id="headingTwo">
-                    <h5 class="mb-0">
-                      <button class="btn btn-link collapsed text-dark" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Delete Employee
-                      </button>
-                    </h5>
-                  </div>
-                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                    <div class="card-body">
-
-                        <form action="">
-                            <fieldset>
-
-                                <label for="name">Delete Employee
-                                    <input type="number">
-                                </label>
-                                <br>
-                                <input type="submit" value="Delete Employee"> 
-                            </fieldset>
-                        </form>
-
-                    </div>
-                  </div>
-                </div>
+                
 
                 <!---------------------------------------------------------------
                 # UPDATE EMPLOYEE 
@@ -205,15 +174,36 @@
                   </div>
                   <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                     <div class="card-body">
+                      
+                      
+                      
                       <form action="/edit_employees" method="post">
                         <fieldset>
-                            <label for="name">Employee ID
+                            
+                          
+                          
+                            <!-- 
+                              <label for="name">Employee ID
                               <input type="text" class="form-control" id="employee_id" name="employee_id" pattern="[0-9]{1,}" placeholder="" required>
-                            </label>                          
+                              </label>                           
+                            -->
+
+                            <label for="name">Employee
+                              <select class="form-control" id="employee_id" name="employee_id" required>
+                                <!-- these are hard coded, but you can add code to make this dynamic -->
+                                  <option default>- Select -</option>
+                                  {% for employee in employees %}
+                                  <option value = {{employee.employee_id}}>{{employee['first_name']}}&nbsp;{{employee['last_name']}}</option>
+                                  {% endfor %}                                        
+                                </select>
+                            </label>         
+                            
+
+
                             <label for="first_name">Employee First Name
                               <input type="text" class="form-control" id="first_name" name="first_name" pattern="[A-Za-z]{1,}" placeholder="" required>
                             </label>
-                            <label for="last_name">Employee First Name
+                            <label for="last_name">Employee Last Name
                               <input type="text" class="form-control" id="last_name" name="last_name" pattern="[A-Za-z]{1,}" placeholder="" required>
                             </label>
                             <label for="name">Employee Type
